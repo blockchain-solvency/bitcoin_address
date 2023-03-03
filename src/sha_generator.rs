@@ -12,13 +12,19 @@ fn SHA_PRIME() -> U256 {
     return SHA_PRIME;
 }
 
-pub fn sha_generate_address() {
+pub fn sha_generate_address() -> String {
     let G = group_utils::BaseGroup::new();
     let summation_result = G.exponentiate_from_256_bit_number(SHA_PRIME());
     println!("{:?} ", summation_result);
     let mut hasher = Sha256::new();
-    println!("Bytes: {:?} ", summation_result.0.to_string().as_bytes());
     hasher.update(summation_result.0.to_string().as_bytes());
     let result = hasher.finalize();
-    println!("{:x} ", result);
+    return format!("{:x}", result);
+}
+pub fn take_first_n_chars(src: String, end: usize) -> String {
+    if end > src.len() {
+        panic!("Invalid (n) provided")
+    }
+    let sub = src.chars().into_iter().take(end).collect();
+    return sub;
 }
