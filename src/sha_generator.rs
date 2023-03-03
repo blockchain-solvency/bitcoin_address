@@ -17,7 +17,8 @@ pub fn sha_generate_address() {
     let summation_result = G.exponentiate_from_256_bit_number(SHA_PRIME());
     println!("{:?} ", summation_result);
     let mut hasher = Sha256::new();
+    println!("Bytes: {:?} ", summation_result.0.to_string().as_bytes());
     hasher.update(summation_result.0.to_string().as_bytes());
     let result = hasher.finalize();
-    println!("{:?} ", result);
+    println!("{:x} ", result);
 }
