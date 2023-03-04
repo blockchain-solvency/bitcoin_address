@@ -1,10 +1,13 @@
-use sha_generator::take_first_n_chars;
-
-mod group_utils;
-mod sha_generator;
-mod subset_generator;
+use bitcoin::secp256k1::{rand, Secp256k1};
+use bitcoin::{Address, Network, PublicKey};
 
 fn main() {
-    let result = take_first_n_chars(sha_generator::sha_generate_address(), 20);
-    println!("{}", result)
+    //! // Generate random key pair.
+    let s = Secp256k1::new();
+
+    let public_key = PublicKey::new(s.generate_keypair(&mut rand::thread_rng()).1);
+
+    // Generate pay-to-pubkey-hash address.
+    let address = Address::p2pkh(&public_key, Network::Bitcoin);
+    println!("{:?}", address)
 }
