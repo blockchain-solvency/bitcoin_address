@@ -1,1 +1,5 @@
 /target
+out.stacks
+profiler.stacks
+perf.svg
+profiler.svg
